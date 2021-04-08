@@ -201,7 +201,10 @@ namespace CryptoAlg
             int toggle;
             double[,] lum = MatrixDecompose(matrix._array, out perm, out toggle);
             if (lum == null)
-                throw new Exception("Unable to compute MatrixDeterminant");
+            {
+                Console.WriteLine("Unable to compute MatrixDeterminant");
+                return 0;
+            }
             double result = toggle;
             for (int i = 0; i < lum.GetLength(0); ++i)
                 result *= lum[i, i];

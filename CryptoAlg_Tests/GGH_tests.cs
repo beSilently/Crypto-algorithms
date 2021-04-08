@@ -43,5 +43,20 @@ namespace CryptoAlg_Tests
 
             Assert.True(message_actual.Equals(message_expected));
         }
+
+        [Test]
+        public void EncryptDecrypt_GenerateUnimodular_CorrectResult()
+        {
+            var publicKey = GGH.GeneratePublicKey(privateKey);
+
+            Vector message = new Vector(new double[] { 3, -7 });
+            Vector error = new Vector(new double[] { 1, -1 });
+
+            var c_actual = GGH.Encrypt(message, publicKey, error);
+
+            var message_decrypted = GGH.Decrypt(c_actual, publicKey, privateKey);
+
+            Assert.True(message_decrypted.Equals(message));
+        }
     }
 }

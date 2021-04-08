@@ -22,8 +22,9 @@
             while (k != 0)
             {
 				var A = Matrix.RandInt(-5, 5, (dimension, dimension));
+				var det = Matrix.Determinant(A);
 
-				if(Matrix.Determinant(A) == 1)
+				if (det == 1.0)
                 {
 					matrix = matrix.MatMul(A);
 					k--;
