@@ -1,8 +1,9 @@
-﻿namespace CryptoAlg
+﻿using System;
+
+namespace CryptoAlg
 {
     public static class GGH
     {
-
 		public static Matrix GeneratePublicKey(Matrix privateKey, Matrix unimodular)
         {
 			return unimodular.MatMul(privateKey);
@@ -24,7 +25,7 @@
 				var A = Matrix.RandInt(-5, 5, (dimension, dimension));
 				var det = Matrix.Determinant(A);
 
-				if (det == 1.0)
+				if (Math.Abs(det) == 1.0)
                 {
 					matrix = matrix.MatMul(A);
 					k--;
@@ -39,7 +40,7 @@
         {
 			var c = message.MatMul(publicKey) + error;
 
-			return c;
+			return c.RoundInt();
         }
 
 		public static Vector Decrypt(Vector message, Matrix publicKey, Matrix privateKey)
@@ -49,7 +50,7 @@
 
 			var result = U.MatMul(publicKey.Inverse());
 
-			return result;
+			return result.RoundInt();
 		}
 	}
 }
